@@ -1,0 +1,16 @@
+{
+  "name": "mutevk",
+  "version": "1.0.0",
+  "description": "extension for hide unwanted messages in VK",
+  "main": "bagger.js",
+  "scripts": {
+    "dev-background": "cd ./background && yarn run dev",
+    "dev-popup": "cd ./popup && yarn run dev",
+    "dev": "concurrently 'npm:dev-*'"
+  },
+  "repository": "github.com/erikmikoyan2003/muteVK",
+  "author": "eoricus",
+  "license": "WTFPL",
+  "private": true,
+  "workspaces": ["background", "popup"]
+}

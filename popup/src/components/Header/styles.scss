@@ -1,0 +1,64 @@
+@import "../../styles/theme.scss";
+
+.Header {
+  @include theme();
+  
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-between;
+
+  height: 40px;
+
+  padding: 8px;
+  margin-bottom: 8px;
+
+  background-color: theme-get("colorHeaderBackground");
+
+  .Header-Name {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 8px;
+
+    .Header-Favicon {
+      width: 24px;
+      height: 24px;
+
+      margin-left: 4px;
+
+      svg {
+        height: 24px;
+        fill: theme-get("colorIconAccent");
+      }
+    }
+
+    .Header-Tittle {
+      font-size: 10px;
+      line-height: 24px;
+
+      h1 {
+        font-weight: 400;
+      }
+    }
+  }
+
+  .Header-Options {
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+
+    .Header-Icon {
+      width: 22px;
+      height: 22px;
+
+      fill: theme-get("colorIconSecondary");
+
+      :hover {
+        fill: theme-get("colorIconMedium");
+      }
+    }
+  }
+}

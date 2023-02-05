@@ -1,0 +1,20 @@
+{
+    "name": "muteVK",
+    "description": "extension for hide unwanted messages in VK",
+    "version": "1.0",
+    "manifest_version": 3,
+    "icons": {
+        "256":"favicon/256.png"
+    },
+    "action": {
+        "default_popup":"./popup/dist/index.html"
+    },
+    "permissions": ["scripting", "activeTab", "storage"],
+    "content_scripts": [
+        {
+            "matches" : ["https://vk.com/im*"],
+            "js" :  ["./background/dist/background.js"],
+            "run_at": "document_start"
+        }
+    ]
+}
