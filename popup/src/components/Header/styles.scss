@@ -1,8 +1,7 @@
 @import "../../styles/theme.scss";
+@import "../../styles/theme.scss";
 
 .Header {
-  @include theme();
-  
   display: flex;
   flex-direction: row;
 
@@ -14,7 +13,7 @@
   padding: 8px;
   margin-bottom: 8px;
 
-  background-color: theme-get("colorHeaderBackground");
+  background-color: var(--colorHeaderBackground);
 
   .Header-Name {
     display: flex;
@@ -26,22 +25,18 @@
     .Header-Favicon {
       width: 24px;
       height: 24px;
-
       margin-left: 4px;
-
-      svg {
-        height: 24px;
-        fill: theme-get("colorIconAccent");
-      }
+      fill: var(--colorIconAccent);
     }
 
     .Header-Tittle {
-      font-size: 10px;
+      font-size: 18px;
       line-height: 24px;
 
-      h1 {
-        font-weight: 400;
-      }
+      font-family: "Roboto";
+      font-weight: 400;
+
+      color: var(--colorTextPrimary);
     }
   }
 
@@ -54,10 +49,10 @@
       width: 22px;
       height: 22px;
 
-      fill: theme-get("colorIconSecondary");
+      fill: var(--colorIconSecondary);
 
       :hover {
-        fill: theme-get("colorIconMedium");
+        fill: var(--colorIconMedium);
       }
     }
   }

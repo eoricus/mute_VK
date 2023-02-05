@@ -1,84 +1,373 @@
-@use "./variables/colors/light" as light;
+html[data-theme="light"] {
+  ////////// TEКСТ
 
-$themes: (
-  light-mode: (
-    "colorTextPrimaryLight": light.$colorTextPrimaryLight,
-    "colorTextPrimaryInvariably": light.$colorTextPrimaryInvariably,
-    "colorTextSecondary": light.$colorTextSecondary,
-    "colorTextTertiary": light.$colorTextTertiary,
-    "colorTextSubhead": light.$colorTextSubhead,
-    "colorTextContrast": light.$colorTextContrast,
-    "colorTextContrastThemed": light.$colorTextContrastThemed,
-    "colorTextLink": light.$colorTextLink,
-    "colorTextLinkThemed": light.$colorTextLinkThemed,
-    "colorTextLinkVisited": light.$colorTextLinkVisited,
-    "colorTextAccent": light.$colorTextAccent,
-    "colorTextAccentThemed": light.$colorTextAccentThemed,
-    "colorTextPositive": light.$colorTextPositive,
-    "colorTextNegative": light.$colorTextNegative,
-    "colorTextMuted": light.$colorTextMuted,
-    "colorLinkContrast": light.$colorLinkContrast,
-    "colorIconPrimary": light.$colorIconPrimary,
-    "colorIconPrimaryInvariably": light.$colorIconPrimaryInvariably,
-    "colorIconSecondary": light.$colorIconSecondary,
-    "colorIconSecondaryAlpha": light.$colorIconSecondaryAlpha,
-    "colorIconMedium": light.$colorIconMedium,
-    "colorIconMediumAlpha": light.$colorIconMediumAlpha,
-    "colorIconTertiary": light.$colorIconTertiary,
-    "colorIconTertiaryAlpha": light.$colorIconTertiaryAlpha,
-    "colorIconContrast": light.$colorIconContrast,
-    "colorIconContrastThemed": light.$colorIconContrastThemed,
-    "colorIconContrastSecondary": light.$colorIconContrastSecondary,
-    "colorIconAccent": light.$colorIconAccent,
-    "colorIconAccentThemed": light.$colorIconAccentThemed,
-    "colorIconPositive": light.$colorIconPositive,
-    "colorIconNegative": light.$colorIconNegative,
-    "colorBackground": light.$colorBackground,
-    "colorBackgroundSecondary": light.$colorBackgroundSecondary,
-    "colorBackgroundSecondaryAlpha": light.$colorBackgroundSecondaryAlpha,
-    "colorBackgroundTertiary": light.$colorBackgroundTertiary,
-    "colorBackgroundContent": light.$colorBackgroundContent,
-    "colorBackgroundContrast": light.$colorBackgroundContrast,
-    "colorBackgroundContrastSecondaryAlpha":
-      light.$colorBackgroundContrastSecondaryAlpha,
-    "colorBackgroundContrastInverse": light.$colorBackgroundContrastInverse,
-    "colorBackgroundModal": light.$colorBackgroundModal,
-    "colorBackgroundModalInverse": light.$colorBackgroundModalInverse,
-    "colorBackgroundAccent": light.$colorBackgroundAccent,
-    "colorBackgroundAccentThemed": light.$colorBackgroundAccentThemed,
-    "colorBackgroundAccentTint": light.$colorBackgroundAccentTint,
-    "colorBackgroundPositive": light.$colorBackgroundPositive,
-    "colorBackgroundNegative": light.$colorBackgroundNegative,
-    "colorBackgroundNegativeTint": light.$colorBackgroundNegativeTint,
-    "colorBackgroundWarning": light.$colorBackgroundWarning,
-    "colorHeaderBackground": light.$colorHeaderBackground,
-    "colorFieldBackground": light.$colorFieldBackground,
-    "colorSeparatorPrimary": light.$colorSeparatorPrimary,
-    "colorSeparatorPrimaryAlpha": light.$colorSeparatorPrimaryAlpha,
-    "colorSeparatorSecondary": light.$colorSeparatorSecondary,
-    "colorImageBorderAlpha": light.$colorImageBorderAlpha,
-    "colorStrokeAccent": light.$colorStrokeAccent,
-    "colorStrokeAccentThemed": light.$colorStrokeAccentThemed,
-    "colorStrokePositive": light.$colorStrokePositive,
-    "colorStrokeNegative": light.$colorStrokeNegative,
-    "colorStrokeContrast": light.$colorStrokeContrast,
-    "colorFieldBorderAlpha": light.$colorFieldBorderAlpha,
-  )
-//   dark-mode:
-//   (
-//     // Todo
-//   ),
-);
+  --colorTextPrimary: #000000;
+  // Основной цвет текста
 
-@mixin theme() {
-  @each $theme, $map in $themes {
-    $theme-map: $map !global;
-    .#{$theme} & {
-      @content;
-    }
-  }
+  --colorTextPrimaryInvariably: #000000;
+  // Основной цвет текста не меняется в зависимости от темы
+
+  --colorTextSecondary: #818c99;
+  // Второстепенный цвет для текста
+
+  --colorTextTertiary: #99a2ad;
+  // Третичный текст, мета-информация
+
+  --colorTextSubhead: #6d7885;
+  // Подзаголовок или чуть более важный текст, чем вторичный
+
+  --colorTextContrast: #ffffff;
+  // Текст белый на всех темах
+
+  --colorTextContrastThemed: #ffffff;
+  // Контрастный цвет текста меняется в зависимости от темы
+
+  --colorTextLink: #2d81e0;
+  // Основной цвет для ссылок
+
+  --colorTextLinkThemed: #2d81e0;
+  // Алььтернативный цвет ссылок
+
+  --colorTextLinkVisited: #4986cc;
+  // Цвет ссылок после перехода
+
+  --colorTextAccent: #2688eb;
+  // Текст акцентного цвета
+
+  --colorTextAccentThemed: #2688eb;
+  // Текст акцентного цвета, перекрашывается в белый на темной теме
+
+  --colorTextPositive: #4bb44b;
+  // Текст цвета положительной информации
+
+  --colorTextNegative: #e64646;
+  // Цвет с негативным подтекстом
+
+  --colorTextMuted: #2c2d2e;
+  // Текст с прозрачностью
+
+  --colorLinkContrast: #ffffff;
+  // Контрастный цвет ссылок для разных тем
+
+  ////////// Иконки
+  --colorIconPrimary: #2c2d2e;
+  // Основной цвет иконок
+
+  --colorIconPrimaryInvariably: #2c2d2e;
+  // Основной цвет иконок не меняется в зависимости от темы
+
+  --colorIconSecondary: #99a2ad;
+  // Второстепенный цвет иконок
+
+  --colorIconSecondaryAlpha: rgba(0, 0, 0, 0.36);
+  // Второстепенный цвет иконок с прозрачностью
+
+  --colorIconMedium: #818c99;
+  // Средние по насыщенности иконки
+
+  --colorIconMediumAlpha: rgba(0, 0, 0, 0.48);
+  // Средние по насыщенности иконки с прозрачностью
+
+  --colorIconTertiary: #b8c1cc;
+  // Третичный цвет иконок
+
+  --colorIconTertiaryAlpha: rgba(0, 0, 0, 0.24);
+  // Третичный цвет иконок с прозрачностью
+
+  --colorIconContrast: #ffffff;
+  // Цвет иконок для разных тем оформления
+
+  --colorIconContrastThemed: #ffffff;
+  // Контрастный цвет иконок меняется в зависимости от темы оформления
+
+  --colorIconContrastSecondary: #f2f3f5;
+  // Иконки одинаковые для светлой и темной темы
+
+  --colorIconAccent: #2688eb;
+  // Иконки акцентного цвета
+
+  --colorIconAccentThemed: #2688eb;
+  // Иконки акцентного цвета, перекрашивается в белый на темной теме
+
+  --colorIconPositive: #4bb34b;
+  // Иконки цвета положительной информации
+
+  --colorIconNegative: #e64646;
+  // Икнонки цвета с негативным подтекстом
+
+  ////////// Фон
+  --colorBackground: #ebedf0;
+  // Основной цвет страницы
+
+  --colorBackgroundSecondary: #f5f5f5;
+  // Второстепенный цвет
+
+  --colorBackgroundSecondaryAlpha: rgba(0, 0, 0, 0.04);
+  // Второстепенный цвет с прозрачностью
+
+  --colorBackgroundTertiary: #f9f9f9;
+  // Третичный цвет
+
+  --colorBackgroundContent: #ffffff;
+  //Основной фон контента
+
+  --colorBackgroundContrast: #ffffff;
+  // Контрастный фон -- одинаковый для разных тем
+
+  --colorBackgroundContrastSecondaryAlpha: rgba(0, 0, 0, 0.2);
+  // Контрастный фон с прозрачностью
+
+  --colorBackgroundContrastInverse: #2d2d2e;
+  // Фон с инверсией (попап, всплывающее окно)
+
+  --colorBackgroundModal: #ffffff;
+  // Фон модального окна (попап, всплывающее окно)
+
+  --colorBackgroundModalInverse: #2d2d2e;
+  // Фон модального окна с инверсией (попа, всплывающее окно)
+
+  --colorBackgroundAccent: #2688eb;
+  // Акцентный фон
+
+  --colorBackgroundAccentThemed: #2688eb;
+  // Акцентный фон, перекрашивается в белый на темной теме
+
+  --colorBackgroundAccentTint: #5a9eff;
+  // Третичный цвет для тултипа
+
+  --colorBackgroundPositive: #4bb34b;
+  // Фон положительной информации
+
+  --colorBackgroundNegative: #e64646;
+  // Фон с негативным подтекстом
+
+  --colorBackgroundNegativeTint: #faebeb;
+  // Тонированный фон для ошибок
+
+  --colorBackgroundWarning: #fff2d6;
+  // Фон для информационных панелей
+
+  --colorHeaderBackground: #ffffff;
+  // Фон шапки страницы
+
+  --colorFieldBackground: #f2f3f5;
+  // Фон для полей ввода и селектов
+
+  ////////// Обводка
+  --colorSeparatorPrimary: #d7d8d9;
+  // Основной цвет разделителей на белом фоне
+
+  --colorSeparatorPrimaryAlpha: rgba(0, 0, 0, 0.12);
+  // Цвет разделителей с прозрачностью
+
+  --colorSeparatorSecondary: #e1e3e6;
+  // Второстепенный цвет разделителей на светло-сером фоне
+
+  --colorImageBorderAlpha: rgba(0, 0, 0, 0.08);
+  // Обводка для изображений
+
+  --colorStrokeAccent: #2688eb;
+  // Обводка в акцентных кнопках
+
+  --colorStrokeAccentThemed: #2688eb;
+  // Обводка в акцентных кнопках, перекрашивает в белый на темной теме
+
+  --colorStrokePositive: #4bb34b;
+  // Обводка для кнопок
+
+  --colorStrokeNegative: #e64646;
+  // Обводка для кнопок
+
+  --colorStrokeContrast: #ffffff;
+  // Обводка для кнопок
+
+  --colorFieldBorderAlpha: rgba(0, 0, 0, 0.12);
+  // Обводка полей ввода, селектов, кнопок
 }
 
-@function theme-get($key) {
-  @return map-get($theme-map, $key);
+html[data-theme="dark"] {
+  ////////// TEКСТ
+
+  --colorTextPrimary: #e1e3e6;
+  // Основной цвет текста
+
+  --colorTextPrimaryInvariably: #000000;
+  // Основной цвет текста не меняется в зависимости от темы
+
+  --colorTextSecondary: #76787a;
+  // Второстепенный цвет для текста
+
+  --colorTextTertiary: #636567;
+  // Третичный текст, мета-информация
+
+  --colorTextSubhead: #969a9f;
+  // Подзаголовок или чуть более важный текст, чем вторичный
+
+  --colorTextContrast: #ffffff;
+  // Текст белый на всех темах
+
+  --colorTextContrastThemed: #000000;
+  // Контрастный цвет текста меняется в зависимости от темы
+
+  --colorTextLink: #529ef4;
+  // Основной цвет для ссылок
+
+  --colorTextLinkThemed: #ffffff;
+  // Алььтернативный цвет ссылок
+
+  --colorTextLinkVisited: #4986cc;
+  // Цвет ссылок после перехода
+
+  --colorTextAccent: #529ef4;
+  // Текст акцентного цвета
+
+  --colorTextAccentThemed: #ffffff;
+  // Текст акцентного цвета, перекрашывается в белый на темной теме
+
+  --colorTextPositive: #4bb44b;
+  // Текст цвета положительной информации
+
+  --colorTextNegative: #ff5c5c;
+  // Цвет с негативным подтекстом
+
+  --colorTextMuted: #e1e3e6;
+  // Текст с прозрачностью
+
+  --colorLinkContrast: #ffffff;
+  // Контрастный цвет ссылок для разных тем
+
+  ////////// Иконки
+  --colorIconPrimary: #e1e3e6;
+  // Основной цвет иконок
+
+  --colorIconPrimaryInvariably: #2c2d2e;
+  // Основной цвет иконок не меняется в зависимости от темы
+
+  --colorIconSecondary: #76787a;
+  // Второстепенный цвет иконок
+
+  --colorIconSecondaryAlpha: rgba(0, 0, 0, 0.43);
+  // Второстепенный цвет иконок с прозрачностью
+
+  --colorIconMedium: #b0b1b6;
+  // Средние по насыщенности иконки
+
+  --colorIconMediumAlpha: rgba(241, 247, 255, 0.66);
+  // Средние по насыщенности иконки с прозрачностью
+
+  --colorIconTertiary: #5d5f61;
+  // Третичный цвет иконок
+
+  --colorIconTertiaryAlpha: rgba(255, 255, 255, 0.3);
+  // Третичный цвет иконок с прозрачностью
+
+  --colorIconContrast: #ffffff;
+  // Цвет иконок для разных тем оформления
+
+  --colorIconContrastThemed: #000000;
+  // Контрастный цвет иконок меняется в зависимости от темы оформления
+
+  --colorIconContrastSecondary: #f2f3f5;
+  // Иконки одинаковые для светлой и темной темы
+
+  --colorIconAccent: #529ef4;
+  // Иконки акцентного цвета
+
+  --colorIconAccentThemed: #ffffff;
+  // Иконки акцентного цвета, перекрашивается в белый на темной теме
+
+  --colorIconPositive: #4bb34b;
+  // Иконки цвета положительной информации
+
+  --colorIconNegative: #ff5c5c;
+  // Икнонки цвета с негативным подтекстом
+
+  ////////// Фон
+  --colorBackground: #0a0a0a;
+  // Основной цвет страницы
+
+  --colorBackgroundSecondary: #232324;
+  // Второстепенный цвет
+
+  --colorBackgroundSecondaryAlpha: rgba(255, 255, 255, 0.1);
+  // Второстепенный цвет с прозрачностью
+
+  --colorBackgroundTertiary: #202021;
+  // Третичный цвет
+
+  --colorBackgroundContent: #19191a;
+  //Основной фон контента
+
+  --colorBackgroundContrast: #ffffff;
+  // Контрастный фон -- одинаковый для разных тем
+
+  --colorBackgroundContrastSecondaryAlpha: rgba(255, 255, 255, 0.2);
+  // Контрастный фон с прозрачностью
+
+  --colorBackgroundContrastInverse: #2d2d2e;
+  // Фон с инверсией (попап, всплывающее окно)
+
+  --colorBackgroundModal: #2d2d2e;
+  // Фон модального окна (попап, всплывающее окно)
+
+  --colorBackgroundModalInverse: #ffffff;
+  // Фон модального окна с инверсией (попа, всплывающее окно)
+
+  --colorBackgroundAccent: #529ef4;
+  // Акцентный фон
+
+  --colorBackgroundAccentThemed: #ffffff;
+  // Акцентный фон, перекрашивается в белый на темной теме
+
+  --colorBackgroundAccentTint: #5a9eff;
+  // Третичный цвет для тултипа
+
+  --colorBackgroundPositive: #4bb34b;
+  // Фон положительной информации
+
+  --colorBackgroundNegative: #ff5c5c;
+  // Фон с негативным подтекстом
+
+  --colorBackgroundNegativeTint: #faebeb;
+  // Тонированный фон для ошибок
+
+  --colorBackgroundWarning: #857250;
+  // Фон для информационных панелей
+
+  --colorHeaderBackground: #19191a;
+  // Фон шапки страницы
+
+  --colorFieldBackground: #292929;
+  // Фон для полей ввода и селектов
+
+  ////////// Обводка
+  --colorSeparatorPrimary: #363738;
+  // Основной цвет разделителей на белом фоне
+
+  --colorSeparatorPrimaryAlpha: rgba(255, 255, 255, 0.12);
+  // Цвет разделителей с прозрачностью
+
+  --colorSeparatorSecondary: #141415;
+  // Второстепенный цвет разделителей на светло-сером фоне
+
+  --colorImageBorderAlpha: rgba(255, 255, 255, 0.08);
+  // Обводка для изображений
+
+  --colorStrokeAccent: #71aaeb;
+  // Обводка в акцентных кнопках
+
+  --colorStrokeAccentThemed: #ffffff;
+  // Обводка в акцентных кнопках, перекрашивает в белый на темной теме
+
+  --colorStrokePositive: #4bb34b;
+  // Обводка для кнопок
+
+  --colorStrokeNegative: #ff5c5c;
+  // Обводка для кнопок
+
+  --colorStrokeContrast: #ffffff;
+  // Обводка для кнопок
+
+  --colorFieldBorderAlpha: rgba(255, 255, 255, 0.12);
+  // Обводка полей ввода, селектов, кнопок
 }

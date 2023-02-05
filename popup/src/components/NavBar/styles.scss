@@ -1,16 +1,27 @@
 @import "../../styles/theme.scss";
 
 .NavBar {
-  @include theme;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
+  position: relative;
+
   border-radius: 8px 8px 0 0;
 
-  background-color: theme-get("colorHeaderBackground");
-  box-shadow: inset 0 -1px 0 theme-get("colorSeparatorSecondary");
+  background-color: var(--colorHeaderBackground);
+  box-shadow: inset 0 -1px 0 var(--colorSeparatorSecondary);
+
+  .Tab-slider {
+    position: absolute;
+    bottom: 0;
+
+    width: 184px;
+    height: 2px;
+    box-shadow: inset 0 -2px 0 var(--colorStrokeAccent);
+    transition: all .2s ease;
+  }
 }
 
 .Tab {
@@ -25,8 +36,8 @@
   list-style-type: none;
   cursor: pointer;
 
-  color: theme-get("colorTextTertiary");
-  fill: theme-get("colorTextTertiary");
+  color: var(--colorTextTertiary);
+  fill: var(--colorTextTertiary);
 
   .Tab-icon {
     width: 20px;
@@ -38,16 +49,14 @@
   }
 
   &[aria-pressed="true"] {
-    color: theme-get("colorTextPrimaryLight");
-    fill: theme-get("colorTextPrimaryLight");
-
-    box-shadow: inset 0 -2px 0 theme-get("colorStrokeAccent");
+    color: var(--colorTextPrimary);
+    fill: var(--colorIconPrimary);
   }
 
   &[aria-pressed="false"]:hover {
-    color: theme-get("colorTextSecondary");
-    fill: theme-get("colorTextSecondary");
+    color: var(--colorTextSecondary);
+    fill: var(--colorIconSecondary);
 
-    box-shadow: inset 0 -2px 0 theme-get("colorSeparatorPrimaryAlpha");
+    box-shadow: inset 0 -2px 0 var(--colorSeparatorPrimaryAlpha);
   }
 }

@@ -1,8 +1,6 @@
 @import "../../styles/theme.scss";
 
 .Footer {
-    @include theme();
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,14 +15,14 @@
       font-weight: 400;
       font-size: 12px;
       line-height: 24px;
-      color: theme-get("colorTextTertiary");
+      color: var(--colorTextTertiary);
   
       a {
         font-style: inherit;
         font-weight: inherit;
         font-size: inherit;
   
-        color: theme-get("colorTextLink");
+        color: var(--colorTextLink);
       }
     }
   
@@ -40,11 +38,11 @@
         svg {
           width: 24px;
           height: 24px;
-          fill: theme-get("colorIconSecondary");;
+          fill: var(--colorIconSecondary);
         }
 
         :hover {
-            fill: theme-get("colorIconMedium");
+            fill: var(--colorIconMedium);
         }
       }
     }

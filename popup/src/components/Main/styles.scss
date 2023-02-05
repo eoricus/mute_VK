@@ -1,7 +1,6 @@
 @import "../../styles/theme.scss";
 
 .Main {
-  @include theme;
   display: flex;
   flex-direction: column;
 
@@ -10,7 +9,7 @@
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 
-  background-color: theme-get("colorBackgroundContent");
+  background-color: var(--colorBackgroundContent);
 }
 
 .IconButton {
@@ -38,8 +37,7 @@
   margin-bottom: 6px;
   border-radius: 6px;
 
-  background-color: #fff;
-  box-shadow: 0 0 0 1px theme-get("colorSeparatorSecondary");
+  box-shadow: 0 0 0 1px var(--colorSeparatorSecondary);
 
   .InputField-Icon_user,
   .InputField-IconContainer {
@@ -50,10 +48,11 @@
     margin-left: 8px;
     margin-right: 8px;
 
-    fill: theme-get("colorIconMedium");
+    fill: var(--colorIconMedium);
   }
 
   .InputField-IconContainer {
+    transition: visibility 0s, opacity .2s linear;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -63,18 +62,39 @@
     margin-left: 248px;
   }
 
+  ._hide {
+    visibility: hidden;
+    opacity: 0;
+  }
+
   .InputField-Input {
     width: 312px;
     height: 32px;
-    border: 0;
 
     padding-left: 32px;
     padding-right: 64px;
+    border: 0;
     border-radius: 6px;
+
+    background-color: var(--colorFieldBackground);
+
+    outline: none;
+
+    caret-color: var(--colorStrokeAccentThemed);
   }
 }
 
-.ClearBanList {
+.InputField-Icon_plus:hover {
+  transition: all .2s;
+  fill: var(--colorIconPositive);
+}
+
+.InputField-Icon_minus:hover {
+  transition: all .2s;
+  fill: var(--colorIconNegative);
+}
+
+.InputSubButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,12 +102,23 @@
   width: 32px;
   height: 32px;
   border-radius: 6px;
+}
 
-  background-color: theme-get("colorBackgroundNegativeTint");
-  box-shadow: 0 0 0 1px theme-get("colorStrokeNegative");
+.InputSubButton_clearBanList {
+  background-color: var(--colorBackgroundNegativeTint);
+  box-shadow: 0 0 0 1px var(--colorStrokeNegative);
 
   .IconButton {
-    fill: theme-get("colorIconNegative");
+    fill: var(--colorIconNegative);
+  }
+}
+
+.InputSubButton_info {
+  background-color: var(--colorBackgroundAccentThemed);
+  box-shadow: 0 0 0 1px var(--colorStrokeAccentThemed);
+
+  .IconButton {
+    fill: var(--colorIconContrastThemed);
   }
 }
 
@@ -105,7 +136,7 @@
     width: 100%;
     overflow: hidden;
 
-    color: theme-get("colorTextSecondary");
+    color: var(--colorTextSecondary);
     justify-content: center;
     align-items: center;
 
@@ -124,8 +155,8 @@
   border-radius: 6px;
   gap: 6px;
 
-  background-color: theme-get("colorBackgroundAccentThemed");
-  box-shadow: 0 0 0 1px theme-get("colorStrokeAccentThemed");
+  background-color: var(--colorBackgroundAccentThemed);
+  box-shadow: 0 0 0 1px var(--colorStrokeAccentThemed);
 
   .UserID-Text_id {
     font-family: "Roboto";
@@ -134,16 +165,12 @@
     font-size: 15px;
     line-height: 20px;
 
-    color: theme-get("colorTextContrastThemed");
+    color: var(--colorTextContrastThemed);
   }
 
   .UserID-Button_delete {
-    fill: theme-get("colorIconContrastThemed");
+    fill: var(--colorIconContrastThemed);
   }
-}
-
-._hide {
-  display: none !important;
 }
 
 .Error {
@@ -156,8 +183,8 @@
   padding: 8px;
   border-radius: 8px;
 
-  box-shadow: 0 0 0 1px theme-get("colorStrokeNegative");
-  background-color: theme-get("colorBackgroundNegativeTint");
+  box-shadow: 0 0 0 1px var(--colorStrokeNegative);
+  background-color: var(--colorBackgroundNegativeTint);
 
   .Error-Text {
     font-family: "Roboto";
@@ -171,6 +198,6 @@
   }
 
   .Error-Button_delete {
-    fill: theme-get("colorIconNegative");
+    fill: var(--colorIconNegative);
   }
 }

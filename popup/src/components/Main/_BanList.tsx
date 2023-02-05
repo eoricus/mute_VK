@@ -104,6 +104,23 @@ export default class BanList extends React.Component<
           });
         }
       });
+
+    document
+      .getElementById("clearBanList")
+      ?.addEventListener("click", (event: MouseEvent) => {
+        if (
+          this.props.banList.length != 0 &&
+          confirm("Очистить список заблокированных пользователей?")
+        ) {
+          chrome.storage.local.set({ banList: [] });
+        }
+
+        this.setState({
+          isTyping: false,
+          isError: false,
+          errorType: undefined,
+        });
+      });
   }
 
   render(): React.ReactNode {
@@ -125,11 +142,11 @@ export default class BanList extends React.Component<
 
             <div
               className={`InputField-IconContainer ${
-                this.state.isTyping ? "" : "_hide"
+                !this.state.isTyping && "_hide"
               }`}
             >
-              <icons.Add
-                className="InputField-Icon InputField-Icon_add"
+              <icons.Plus
+                className="InputField-Icon InputField-Icon_plus"
                 id="addUserId"
               />
               <icons.Minus
@@ -138,19 +155,8 @@ export default class BanList extends React.Component<
               />
             </div>
           </div>
-          <div className="ClearBanList">
-            <icons.Trash
-              onClick={() => {
-                if (confirm("Очистить список заблокированных пользователей?")) {
-                  chrome.storage.local.set({ banList: [] });
-                }
-                this.setState({
-                  isTyping: false,
-                  isError: false,
-                  errorType: undefined,
-                });
-              }}
-            />
+          <div className="InputSubButton InputSubButton_clearBanList">
+            <icons.Trash id="clearBanList" />
           </div>
         </div>
 

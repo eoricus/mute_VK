@@ -19,6 +19,7 @@ class App extends React.Component<
     activeTab: "Users" | "Settings";
     banList?: String[];
     settings?: SettingsInterface;
+    darkMode: boolean;
   }
 > {
   constructor(props: any) {
@@ -26,6 +27,7 @@ class App extends React.Component<
 
     this.state = {
       activeTab: "Users",
+      darkMode: false,
     };
     this.changeTab = this.changeTab.bind(this);
   }
@@ -59,13 +61,21 @@ class App extends React.Component<
       if (namespace == "local") {
         for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
           if (key == "banList") {
-            this.setState({banList: newValue})
+            this.setState({ banList: newValue });
           } else if (key == "settings") {
-            this.setState({settings: newValue})
+            this.setState({ settings: newValue });
           }
         }
       }
     });
+
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.setAttribute("data-theme", "dark");
+      this.setState({ darkMode: true });
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      this.setState({ darkMode: false });
+    }
   }
 
   /**
@@ -83,7 +93,12 @@ class App extends React.Component<
   render(): React.ReactNode {
     return (
       <>
-        <Header />
+        <Header
+          changeTheme={() => {
+            document.documentElement.setAttribute("data-theme", !this.state.darkMode ? "light" : "dark");
+            this.setState({ darkMode: !this.state.darkMode });
+          }}
+        />
 
         <div id="containerForNavBarAndMain">
           <NavBar activeTab={this.state.activeTab} changeTab={this.changeTab} />

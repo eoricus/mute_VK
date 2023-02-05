@@ -39,16 +39,55 @@ const SettingsButton = (props: {
   );
 };
 
-export default class Settings extends React.Component<{
-  settings: SettingsInterface;
-}> {
+export default class Settings extends React.Component<
+  {
+    settings: SettingsInterface;
+  },
+  { isTyping: Boolean }
+> {
   constructor(props: { settings: SettingsInterface }) {
     super(props);
+    this.state = {
+      isTyping: false,
+    };
   }
 
   render(): React.ReactNode {
     return (
-      <div className="Content">
+      <main className="Main">
+        <div className="Input">
+          <div className="InputField">
+            <icons.AtSign className="InputField-Icon InputField-Icon_user" />
+            <input
+              type="text"
+              className="InputField-Input"
+              id="InputUserId"
+              onInput={(event: any) => {
+                this.setState({ isTyping: Boolean(event.target.value) });
+              }}
+              placeholder="ваш токен"
+            />
+
+            <div
+              className={`InputField-IconContainer ${
+                this.state.isTyping ? "" : "_hide"
+              }`}
+            >
+              <icons.Plus
+                className="InputField-Icon InputField-Icon_plus"
+                id="addUserId"
+              />
+              <icons.Minus
+                className="InputField-Icon InputField-Icon_minus"
+                id="clearInputField"
+              />
+            </div>
+          </div>
+          <div className="InputSubButton InputSubButton_info">
+            <icons.Info/>
+          </div>
+        </div>
+
         <div className="SettingsField">
           <SettingsButton
             tag="mode"
@@ -83,7 +122,7 @@ export default class Settings extends React.Component<{
             onClickMethod={() => {}}
           />
         </div>
-      </div>
+      </main>
     );
   }
 }

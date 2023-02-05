@@ -15,6 +15,15 @@ export default class NavBar extends React.Component<{
     return (
       <nav className="NavBar">
         <div
+          className="Tab-slider"
+          style={{
+            transform:
+              this.props.activeTab === "Users"
+                ? "translateX(0)"
+                : "translateX(184px)",
+          }}
+        />
+        <div
           className="Tab Tab-Users"
           title="Пользователи"
           role="button"

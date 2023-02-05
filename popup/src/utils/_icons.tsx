@@ -45,7 +45,21 @@ let icons = {
       </div>
     );
   }),
-  Plus: buffer,
+  PlusInCircle: buffer,
+  Plus: (props: any) => {
+    return (
+      <div
+        className={`IconButton ${props.className || ""}`}
+        title={props.title}
+        id={props.id}
+        onClick={props.onClick || null}
+      >
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 9V13C9 13.5523 8.55228 14 8 14C7.44772 14 7 13.5523 7 13V9H3C2.44772 9 2 8.55228 2 8C2 7.44772 2.44772 7 3 7H7V3C7 2.44772 7.44772 2 8 2C8.55228 2 9 2.44772 9 3V7H13C13.5523 7 14 7.44772 14 8C14 8.55228 13.5523 9 13 9H9Z" />
+        </svg>
+      </div>
+    );
+  },
   Block: (props: any) => {
     return (
       <div
@@ -260,7 +274,7 @@ let icons = {
     );
   }),
   Gear: buffer,
-  Info: (props: any) => {
+  InfoInCircle: (props: any) => {
     return (
       <div
         className={`IconButton ${props.className || ""}`}
@@ -280,6 +294,25 @@ let icons = {
             d="M8 12C7.58579 12 7.25 11.6642 7.25 11.25V7.75C7.25 7.33579 7.58579 7 8 7C8.41421 7 8.75 7.33579 8.75 7.75V11.25C8.75 11.6642 8.41421 12 8 12Z"
           />
           <path d="M7.10002 4.9C7.10002 4.40295 7.50297 4 8.00002 4C8.49708 4 8.90002 4.40295 8.90002 4.9C8.90002 5.39706 8.49708 5.8 8.00002 5.8C7.50297 5.8 7.10002 5.39706 7.10002 4.9Z" />
+        </svg>
+      </div>
+    );
+  },
+  Info: (props: any) => {
+    return (
+      <div
+        className={`IconButton ${props.className || ""}`}
+        title={props.title}
+        id={props.id}
+        onClick={props.onClick || null}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+          <path
+            d="M8,15c-0.7,0-1.3-0.6-1.3-1.3V7.6c0-0.7,0.6-1.3,1.3-1.3c0.7,0,1.3,0.6,1.3,1.3v6.1C9.3,14.4,8.7,15,8,15z"
+          />
+          <path
+            d="M6.4,2.6C6.4,1.7,7.1,1,8,1c0.9,0,1.6,0.7,1.6,1.6c0,0.9-0.7,1.6-1.6,1.6C7.1,4.2,6.4,3.4,6.4,2.6z"
+          />
         </svg>
       </div>
     );
@@ -354,7 +387,21 @@ let icons = {
       </div>
     );
   }),
-  Minus: buffer,
+  MinusInCircle: buffer,
+  Minus: (props: any) => {
+    return (
+      <div
+        className={`IconButton ${props.className || ""}`}
+        title={props.title}
+        id={props.id}
+        onClick={props.onClick || null}
+      >
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.5 7C13.7761 7 14 7.22386 14 7.5V9C14 9.27614 13.7761 9.5 13.5 9.5L2.5 9.5C2.22386 9.5 2 9.27614 2 9V7.5C2 7.22386 2.22386 7 2.5 7L13.5 7Z" />
+        </svg>
+      </div>
+    );
+  },
   User: (props: any) => {
     return (
       <div
