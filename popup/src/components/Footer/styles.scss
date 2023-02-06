@@ -1,49 +1,83 @@
 @import "../../styles/theme.scss";
 
 .Footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  
-    gap: 32px;
-  
-    height: 32px;
-    line-height: 32px;
-  
-    .Footer-Text {
-      font-style: italic;
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 24px;
-      color: var(--colorTextTertiary);
-  
-      a {
-        font-style: inherit;
-        font-weight: inherit;
-        font-size: inherit;
-  
-        color: var(--colorTextLink);
-      }
-    }
-  
-    .Footer-Icon {
-      .Footer-IconButton {
-        display: flex;
-        align-items: center;
-        justify-content: end;
-  
-        height: 32px;
-        width: 26px;
-  
-        svg {
-          width: 24px;
-          height: 24px;
-          fill: var(--colorIconSecondary);
-        }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-        :hover {
-            fill: var(--colorIconMedium);
-        }
-      }
+  gap: 8px;
+
+  height: 32px;
+  line-height: 32px;
+
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 24px;
+  
+}
+
+.Footer-Signature {
+  min-width: 170px;
+  color: var(--colorTextSecondary);
+
+  font-style: italic;
+  a {
+    font-style: italic;
+  }
+}
+
+.Footer-Marquee {
+  display: inline;
+  white-space: nowrap;
+
+  color: var(--colorTextTertiary);
+
+  overflow: hidden;
+
+  .Footer-Marquee_Wrapper {
+    float: left;
+    will-change: transform;
+    animation: marquee 60s linear infinite;
+    overflow: hidden;
+
+    .Footer-Marquee_Item {
+      display: inline-block;
+      animation: marquee 30s linear infinite;
+    }
+
+    &:hover {
+      animation-play-state: paused;
     }
   }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0)
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.Footer-Icon {
+  .Footer-IconButton {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    height: 32px;
+    min-width: 26px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--colorIconSecondary);
+    }
+
+    :hover {
+      fill: var(--colorIconMedium);
+    }
+  }
+}

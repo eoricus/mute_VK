@@ -7,10 +7,11 @@ import Footer from "./components/Footer";
 import SettingsInterface from "./interfaces/settings.interface";
 
 const settingsByDefault: SettingsInterface = {
-  mode: "Simple",
+  isPrettyMode: false,
   isBlurMode: false,
   isHideOnlyInChats: false,
   isAutoCensorship: false,
+  isHideFooter: false
 };
 
 class App extends React.Component<
@@ -42,12 +43,14 @@ class App extends React.Component<
       await chrome.storage.local.set({ settings: settings });
     } else {
       settings = {
-        mode: settings.mode || settingsByDefault.mode,
+        isPrettyMode: settings.isPrettyMode || settingsByDefault.isPrettyMode,
         isBlurMode: settings.isBlurMode || settingsByDefault.isBlurMode,
         isHideOnlyInChats:
           settings.isHideOnlyInChats || settingsByDefault.isHideOnlyInChats,
         isAutoCensorship:
           settings.isAutoCensorship || settingsByDefault.isAutoCensorship,
+        isHideFooter:
+          settings.isHideFooter || settingsByDefault.isHideFooter
       };
     }
     this.setState({ settings: settings, banList: banList });
@@ -58,6 +61,7 @@ class App extends React.Component<
   async componentDidMount(): Promise<void> {
     await this.init();
     chrome.storage.onChanged.addListener((changes, namespace) => {
+      console.log(changes)
       if (namespace == "local") {
         for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
           if (key == "banList") {
@@ -95,6 +99,7 @@ class App extends React.Component<
       <>
         <Header
           changeTheme={() => {
+            console.log(this.state.darkMode);
             document.documentElement.setAttribute("data-theme", !this.state.darkMode ? "light" : "dark");
             this.setState({ darkMode: !this.state.darkMode });
           }}
@@ -110,7 +115,7 @@ class App extends React.Component<
           />
         </div>
 
-        <Footer />
+        <Footer hide={this.state.settings?.isHideFooter || false}/>
       </>
     );
   }

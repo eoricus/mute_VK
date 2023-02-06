@@ -25,7 +25,7 @@ class Header extends React.Component<{changeTheme: Function}> {
               chrome.tabs.create({ url: "https://vk.me/mute_vk" });
             }}
           />
-          <icons.Palette className="Header-Icon" title="Тема приложения" onClick={this.props.changeTheme}/>
+          <icons.Palette className="Header-Icon" title="Тема приложения" onClick={() => this.props.changeTheme()}/>
         </div>
       </header>
     );

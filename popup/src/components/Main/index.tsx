@@ -25,9 +25,9 @@ export default class Main extends React.Component<
   render(): React.ReactNode {
     switch (this.props.activeTab) {
       case "Users":
-        return <BanListPage banList={this.props.banList}/>;
+        return <BanListPage banList={this.props.banList} compact={!this.props.settings.isHideFooter}/>;
       case "Settings":
-        return <SettingsPage settings={this.props.settings}/>;
+        return <SettingsPage settings={this.props.settings} compact={!this.props.settings.isHideFooter}/>;
     }
   }
 }

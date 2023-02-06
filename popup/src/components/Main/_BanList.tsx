@@ -10,11 +10,10 @@ const userTab = () => {
 };
 
 export default class BanList extends React.Component<
-  // Props
   {
     banList: String[];
+    compact: boolean;
   },
-  // State
   {
     isTyping: boolean;
     isError: boolean;
@@ -22,7 +21,7 @@ export default class BanList extends React.Component<
     isHoverOnErrorText?: boolean;
   }
 > {
-  constructor(props: { banList: String[] }) {
+  constructor(props: { banList: String[],  compact: boolean; }) {
     super(props);
     this.state = {
       isTyping: false,
@@ -125,7 +124,7 @@ export default class BanList extends React.Component<
 
   render(): React.ReactNode {
     return (
-      <main className="Main Main-BanListPage">
+      <main className={`Main Main-BanListPage ${this.props.compact ? "_compact" : ""}`}>
         {/* Settings Field */}
         <div className="Input">
           <div className="InputField">

@@ -2,60 +2,82 @@ import React, { useState } from "react";
 
 import icons from "../../utils/_icons";
 import SettingsInterface from "../../interfaces/settings.interface";
-
-const SettingsButton = (props: {
-  tag: string;
-  title: string;
-  subtitle: string;
-  isBlocked: boolean;
-  isActive: boolean;
-  onClickMethod?: Function;
-}) => {
-  const [_isActive, setState] = useState(props.isActive);
-  return (
-    <div className={`Button Button-${props.tag}`}>
-      <div className="Button-CheckBox">
-        <div
-          className={`Button-CheckBox_state ${
-            props.isBlocked ? "_blocked" : _isActive ? "_active" : "_unActive"
-          }`}
-          onClick={() => {
-            setState(!_isActive);
-          }}
-          role="checkbox"
-        >
-          <icons.CheckBox
-            className="IconButton-checkBox"
-            isActive={props.isBlocked || _isActive}
-            title=""
-          />
-        </div>
-      </div>
-      <div className="Button-Text">
-        <h3>{props.title}</h3>
-        <p>{props.subtitle}</p>
-      </div>
-    </div>
-  );
-};
+import BanList from "./_BanList";
 
 export default class Settings extends React.Component<
   {
     settings: SettingsInterface;
+    compact: boolean;
   },
-  { isTyping: Boolean }
+  {
+    isTyping: Boolean;
+    isError: boolean;
+    errorType?: "BlockedFunction";
+    isHoverOnErrorText?: boolean;
+  }
 > {
-  constructor(props: { settings: SettingsInterface }) {
+  constructor(props: { settings: SettingsInterface; compact: boolean }) {
     super(props);
     this.state = {
       isTyping: false,
+      isError: false,
     };
+
+    this.setSettings = this.setSettings.bind(this);
+    this.Error = this.Error.bind(this);
+  }
+
+  Error() {
+    let errorText;
+    switch (this.state.errorType) {
+      case "BlockedFunction":
+        errorText = "Функция пока недоступна(((";
+        break;
+      default:
+        errorText = "Неизвестная ошибка";
+        break;
+    }
+
+    return (
+      <div className="Error">
+        <span className="Error-Text">{errorText}</span>
+
+        <icons.Cancel
+          className="Error-Button Error-Button_delete"
+          onClick={() => {
+            this.setState({
+              isError: false,
+              errorType: undefined,
+            });
+          }}
+        />
+      </div>
+    );
+  }
+
+  setSettings(property: String, state: boolean) {
+    let newSettings = this.props.settings;
+    newSettings[property as keyof SettingsInterface] = !state;
+
+    console.log(property, !state);
+    console.log(newSettings);
+    chrome.storage.local.get(["settings"], async (data) => {
+      console.log(data);
+      console.log(newSettings);
+      chrome.storage.local.set({
+        settings: newSettings,
+      });
+    });
   }
 
   render(): React.ReactNode {
     return (
-      <main className="Main">
-        <div className="Input">
+      <main
+        className={`Main Main-SettingsPage ${
+          this.props.compact ? "_compact" : ""
+        }`}
+      >
+        {/* <div className="Input">
           <div className="InputField">
             <icons.AtSign className="InputField-Icon InputField-Icon_user" />
             <input
@@ -84,43 +106,78 @@ export default class Settings extends React.Component<
             </div>
           </div>
           <div className="InputSubButton InputSubButton_info">
-            <icons.Info/>
+            <icons.Info />
           </div>
-        </div>
+        </div> */}
 
         <div className="SettingsField">
-          <SettingsButton
-            tag="mode"
-            title="Заблоченная кнопка"
-            subtitle=""
-            isBlocked={true}
-            isActive={false}
-            onClickMethod={() => {}}
-          />
-          <SettingsButton
-            tag="isBlurMode"
-            title="Неактивная кнопка"
-            subtitle=""
-            isBlocked={false}
-            isActive={false}
-            onClickMethod={() => {}}
-          />
-          <SettingsButton
-            tag="isHideOnlyInChats"
-            title="Активная кнопка"
-            subtitle=""
-            isBlocked={false}
-            isActive={true}
-            onClickMethod={() => {}}
-          />
-          <SettingsButton
-            tag="isAutoCensorship"
-            title="Продвинутый режим"
-            subtitle=""
-            isBlocked={true}
-            isActive={false}
-            onClickMethod={() => {}}
-          />
+          {[
+            {
+              title: "Скрыть нижнюю панель",
+              subtitle:
+                "Если вдруг вы не хотите видеть мои гениальные мысли, или донатить мне(((",
+              state: this.props.settings.isHideFooter,
+              property: "isHideFooter",
+              isBlocked: false,
+            },
+            {
+              title: "Блюр",
+              subtitle: "Блюрит сообщения, вместо удаления",
+              state: this.props.settings.isBlurMode,
+              property: "isBlurMode",
+              isBlocked: false,
+            },
+            {
+              title: `"Красивый" режим`,
+              subtitle:
+                "Позволяет отображать данные пользователей. Необходима авторизация:(",
+              state: this.props.settings.isPrettyMode,
+              property: "isPrettyMode",
+              isBlocked: true,
+            },
+            {
+              title: "Скрывать сообщения только в чатах",
+              subtitle: "Оставляет сообщения в личных диалогах",
+              state: this.props.settings.isHideOnlyInChats,
+              property: "isHideOnlyInChats",
+              isBlocked: true,
+            },
+            {
+              title: "Цензура",
+              subtitle: "Скрывает сообщения с определенным содержанием",
+              state: this.props.settings.isAutoCensorship,
+              property: "isAutoCensorship",
+              isBlocked: true,
+            },
+          ].map((_setting) => {
+            return (
+              <div
+                className={`Setting ${_setting.isBlocked ? "_blocked" : ""}`}
+              >
+                <icons.CheckBox
+                  className={`Setting-CheckBox ${_setting.isBlocked ? "_blocked" : _setting.state ? "_active" : ""}`}
+                  isActive={_setting.state}
+                  onClick={() =>
+                    _setting.isBlocked
+                      ? this.setState({
+                          isError: true,
+                          errorType: "BlockedFunction",
+                        })
+                      : this.setSettings(_setting.property, _setting.state)
+                  }
+                />
+                <div className="Setting-Text">
+                  <h3 className="Setting-Title">
+                    {_setting.isBlocked ? "*" : ""}
+                    {_setting.title}
+                  </h3>
+                  <span className="Setting-Subtitle">{_setting.subtitle}</span>
+                </div>
+              </div>
+            );
+          })}
+
+          {this.state.isError && <this.Error />}
         </div>
       </main>
     );
