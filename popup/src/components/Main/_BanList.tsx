@@ -17,11 +17,11 @@ export default class BanList extends React.Component<
   {
     isTyping: boolean;
     isError: boolean;
-    errorType?: "noDigitalID";
+    errorType?: "noDigitalID" | "tooLongID";
     isHoverOnErrorText?: boolean;
   }
 > {
-  constructor(props: { banList: String[],  compact: boolean; }) {
+  constructor(props: { banList: String[]; compact: boolean }) {
     super(props);
     this.state = {
       isTyping: false,
@@ -29,6 +29,7 @@ export default class BanList extends React.Component<
     };
 
     this.Error = this.Error.bind(this);
+    this.setError = this.setError.bind(this);
   }
 
   Error() {
@@ -37,13 +38,16 @@ export default class BanList extends React.Component<
       case "noDigitalID":
         errorText = "ID может содержать только цифры";
         break;
+      case "tooLongID":
+        errorText = "Слишком длинный ID (больше 16 цифр)";
+        break;
       default:
         errorText = "Неизвестная ошибка";
         break;
     }
 
     return (
-      <div className="Error">
+      <div className="Error" id="Error">
         <span className="Error-Text">{errorText}</span>
 
         <icons.Cancel
@@ -59,20 +63,37 @@ export default class BanList extends React.Component<
     );
   }
 
+  setError(errorType: "noDigitalID" | "tooLongID", clearTime: number = 3000) {
+    this.setState({
+      isError: true,
+      errorType: errorType,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        isError: false,
+        errorType: undefined,
+      });
+    }, clearTime);
+  }
+
   componentDidMount(): void {
     const ElementInputUserId: HTMLInputElement = document.getElementById(
       "InputUserId"
     ) as HTMLInputElement;
 
+    ElementInputUserId.addEventListener("keypress", (event) => {
+      if (!/[0-9]|\./.test(event.key)) {
+        event.returnValue = false;
+        if (event.preventDefault) event.preventDefault();
+        this.setError("noDigitalID");
+      }
+    });
+
     document
       .getElementById("clearInputField")
       ?.addEventListener("click", (event: MouseEvent) => {
         ElementInputUserId.value = "";
-        this.setState({
-          isTyping: false,
-          isError: false,
-          errorType: undefined,
-        });
       });
 
     document
@@ -81,7 +102,11 @@ export default class BanList extends React.Component<
         let userID = ElementInputUserId.value;
 
         /** the entered id must contain only numbers, else  */
-        if (/^\d+$/.test(userID)) {
+        if (!/^\d+$/.test(userID)) {
+          this.setError("noDigitalID");
+        } else if (userID.length >= 16) {
+          this.setError("tooLongID");
+        } else {
           chrome.storage.local.get(["banList"], async (data) => {
             chrome.storage.local.set({
               banList:
@@ -90,17 +115,10 @@ export default class BanList extends React.Component<
                   : [...data.banList, userID],
             });
           });
-          ElementInputUserId.value = "";
           this.setState({
             isTyping: false,
-            isError: false,
-            errorType: undefined,
           });
-        } else {
-          this.setState({
-            isError: true,
-            errorType: "noDigitalID",
-          });
+          ElementInputUserId.value = "";
         }
       });
 
@@ -113,18 +131,16 @@ export default class BanList extends React.Component<
         ) {
           chrome.storage.local.set({ banList: [] });
         }
-
-        this.setState({
-          isTyping: false,
-          isError: false,
-          errorType: undefined,
-        });
       });
   }
 
   render(): React.ReactNode {
     return (
-      <main className={`Main Main-BanListPage ${this.props.compact ? "_compact" : ""}`}>
+      <main
+        className={`Main Main-BanListPage ${
+          this.props.compact ? "_compact" : ""
+        }`}
+      >
         {/* Settings Field */}
         <div className="Input">
           <div className="InputField">
@@ -165,7 +181,8 @@ export default class BanList extends React.Component<
               Пусто! Вы пока никого не забанили
             </div>
           ) : (
-            this.props.banList.map((id) => {
+            <div className="BanList_users">
+            {this.props.banList.map((id) => {
               return (
                 <div className="UserID">
                   <icons.Cancel
@@ -181,7 +198,7 @@ export default class BanList extends React.Component<
                   <div className="UserID-Text_id">id{id}</div>
                 </div>
               );
-            })
+            })}</div>
           )}
         </div>
 

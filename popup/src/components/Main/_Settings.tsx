@@ -27,6 +27,20 @@ export default class Settings extends React.Component<
     this.Error = this.Error.bind(this);
   }
 
+  setError(errorType: "BlockedFunction", clearTime: number = 3000) {
+    this.setState({
+      isError: true,
+      errorType: errorType,
+    });
+
+    setTimeout(() => {
+      this.setState({
+        isError: false,
+        errorType: undefined,
+      });
+    }, clearTime);
+  }
+
   Error() {
     let errorText;
     switch (this.state.errorType) {
@@ -155,14 +169,17 @@ export default class Settings extends React.Component<
                 className={`Setting ${_setting.isBlocked ? "_blocked" : ""}`}
               >
                 <icons.CheckBox
-                  className={`Setting-CheckBox ${_setting.isBlocked ? "_blocked" : _setting.state ? "_active" : ""}`}
+                  className={`Setting-CheckBox ${
+                    _setting.isBlocked
+                      ? "_blocked"
+                      : _setting.state
+                      ? "_active"
+                      : ""
+                  }`}
                   isActive={_setting.state}
                   onClick={() =>
                     _setting.isBlocked
-                      ? this.setState({
-                          isError: true,
-                          errorType: "BlockedFunction",
-                        })
+                      ? this.setError("BlockedFunction")
                       : this.setSettings(_setting.property, _setting.state)
                   }
                 />
