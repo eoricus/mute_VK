@@ -1,0 +1,195 @@
+.ListOfUsers {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  overflow-y: auto;
+
+  width: 100%;
+
+  border-radius: 8px;
+
+  margin: 8px;
+  margin-top: 0px;
+
+  &.ListOfUsers-Empty {
+    display: inline-flex;
+    overflow: hidden;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    vertical-align: middle;
+
+    .ListOfUsers-Notice {
+      color: var(--colorTextSecondary);
+
+      font-size: 14px;
+
+      margin: 0 auto;
+
+      .IconButton {
+        display: inline-block;
+
+        vertical-align: middle;
+
+        fill: var(--colorTextSecondary);
+
+        height: 14px;
+        width: 14px;
+
+        cursor: text;
+      }
+    }
+  }
+}
+
+.Input {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 8px;
+}
+
+.InputField {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  height: 32px;
+
+  gap: 8px;
+
+  border-radius: 8px;
+
+  box-shadow: 0 0 0 1px var(--colorSeparatorSecondary);
+
+  .InputField-Icon_user,
+  .InputField-IconContainer {
+    position: absolute;
+  }
+
+  .InputField-Icon {
+    margin-left: 8px;
+    margin-right: 8px;
+
+    fill: var(--colorIconMedium);
+
+    &.InputField-Icon_plus:hover {
+      transition: all 0.2s;
+      // TODO maybe is too bad
+      fill: var(--colorIconPositive);
+    }
+
+    &.InputField-Icon_minus:hover {
+      transition: all 0.2s;
+      // TODO maybe is too bad
+      fill: var(--colorIconNegative);
+    }
+  }
+
+  .InputField-IconContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: 64px;
+    height: 32px;
+
+    transition: visibility 0s, opacity 0.2s linear;
+
+    margin-left: 248px; //TODO
+
+    transition: all 0.2s ease;
+
+    &.InputField-IconContainer_hide {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+
+  .InputField-Input {
+    width: 312px;
+    height: 32px;
+
+    padding-left: 32px;
+    padding-right: 64px;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background-color: var(--colorFieldBackground);
+    color: var(--colorTextPrimary);
+    caret-color: var(--colorStrokeAccentThemed);
+  }
+}
+
+.Input-SubButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+
+  background-color: var(--colorBackgroundNegativeTint);
+  box-shadow: 0 0 0 1px var(--colorStrokeNegative) inset;
+
+  transition: all 0.15s ease;
+
+  fill: var(--colorIconaAccent);
+
+  .IconButton {
+    fill: var(--colorIconNegative);
+  }
+
+  &:hover {
+    background-color: var(--colorBackgroundNegative);
+    box-shadow: 0 0 0 1px var(--colorStrokeNegative) inset;
+
+    .IconButton {
+      fill: var(--colorBackgroundContrast);
+    }
+  }
+}
+
+.UserIDTag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 28px;
+
+  padding: 6px 12px;
+  border-radius: 8px;
+  gap: 8px;
+
+  background-color: var(--colorBackgroundAccent);
+  box-shadow: 0 0 0 1px var(--colorStrokeAccent) inset;
+
+  transition: all 0.15s ease;
+
+  .UserIDTag-Text_id {
+    // TODO minimize
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: var(--colorTextContrast);
+  }
+
+  .UserIDTag-Button_delete {
+    fill: var(--colorIconContrast);
+  }
+
+  &:has(.UserIDTag-Button_delete:hover) {
+    background-color: var(--colorBackgroundNegative);
+    box-shadow: 0 0 0 1px var(--colorStrokeNegative);
+  }
+}

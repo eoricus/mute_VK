@@ -1,0 +1,73 @@
+@import "./users";
+@import "./settings";
+
+.Main {
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  height: 160px;
+  min-height: 136px;
+
+  border-radius: 0 0 8px 8px;
+
+  background-color: var(--colorBackgroundContent);
+
+  overflow: hidden;
+
+  transition: height 0.2s ease;
+
+  &._compact {
+    height: 136px !important;
+  }
+}
+
+.IconButton {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: absolute;
+  height: 32px;
+
+  margin: 0 8px;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 8px;
+
+
+  left: 0;
+  right: 0;
+  bottom: 8px;
+
+  box-shadow: 0 0 0 1px var(--colorStrokeNegative);
+  background-color: var(--colorBackgroundNegativeTint);
+
+  transition: all .2s ease;
+
+  &[aria-hidden="true"] {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .Error-Text {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .Error-Button_delete {
+    fill: var(--colorIconNegative);
+  }
+}

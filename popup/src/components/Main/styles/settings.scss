@@ -1,0 +1,60 @@
+.ListOfSettings {
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
+.Setting {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 4px 0;
+  margin: 4px 0;
+
+  border-radius: 8px;
+
+  .Setting-CheckBox {
+    width: 16px;
+    height: 16px;
+
+    margin: 0 8px;
+  }
+
+  .Setting-Text {
+    max-width: 288px;
+
+    .Setting-Title {
+      font-size: 14px;
+
+      color: var(--colorTextPrimary);
+    }
+
+    .Setting-Subtitle {
+      font-size: 12px;
+
+      color: var(--colorTextSecondary);
+    }
+  }
+
+  &._active .Setting-CheckBox {
+    fill: var(--colorIconAccent);
+  }
+
+  &._blocked {
+    .Setting-Title,
+    .Setting-Subtitle {
+      color: var(--colorTextTertiary) !important;
+    }
+
+    .Setting-CheckBox {
+      fill: var(--colorIconTertiary);
+    }
+  }
+
+  &._unactive .Setting-CheckBox {
+    fill: var(--colorIconContrast);
+  }
+}

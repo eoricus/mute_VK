@@ -1,6 +1,6 @@
 import React from "react";
 
-import icons from "../../utils/_icons";
+import { Icons, Button } from "../../utils/Button";
 import "./styles.scss";
 
 export default class NavBar extends React.Component<{
@@ -32,7 +32,8 @@ export default class NavBar extends React.Component<{
             this.props.changeTab("Users");
           }}
         >
-          <icons.Users className="Tab-icon" />
+          {/* <icons.Users className="Tab-icon" /> */}
+          <Button icon={Icons.usersOutline} className="Tab-icon"/>
           <h2 className="Tab-title">Пользователи</h2>
         </div>
 
@@ -45,7 +46,8 @@ export default class NavBar extends React.Component<{
             this.props.changeTab("Settings");
           }}
         >
-          <icons.Settings className="Tab-icon" />
+          {/* <icons.Settings className="Tab-icon" /> */}
+          <Button icon={Icons.gearOutline} className="Tab-icon"/>
           <h2 className="Tab-title">Настройки</h2>
         </div>
       </nav>

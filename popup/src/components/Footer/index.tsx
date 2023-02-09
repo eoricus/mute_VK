@@ -1,18 +1,15 @@
 import React from "react";
 
-import icons from "../../utils/_icons";
+import { Icons, Button } from "../../utils/Button";
 import "./styles.scss";
 
 class Footer extends React.Component<{
-  hide: boolean
+  hide: boolean;
 }> {
-  constructor(props: {
-    hide: boolean
-  }) {
+  constructor(props: { hide: boolean }) {
     super(props);
   }
-  componentDidMount(): void {
-  }
+  componentDidMount(): void {}
 
   render(): React.ReactNode {
     return (
@@ -29,7 +26,10 @@ class Footer extends React.Component<{
           </span>
         </div>
         <div className="Footer-Icon">
-          <icons.CupOfCoffee className="Footer-IconButton" />
+          <Button
+            icon={Icons.cupOfCoffee}
+            className="Footer-IconButton"
+          />
         </div>
       </footer>
     );
