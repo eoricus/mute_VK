@@ -88,7 +88,7 @@ export default function Settings(props: {
                 className="Setting-CheckBox"
                 onClick={() =>
                   _setting.isBlocked
-                    ? props.setError("")
+                    ? props.setError("clientErrorFunctionBlocked")
                     : setSettings(_setting.property, !_setting.state)
                 }
               />
