@@ -19,7 +19,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".scss"],
+    extensions: [".ts", ".tsx", ".scss", ".js", ".jsx"],
   },
   output: {
     filename: "background.js",

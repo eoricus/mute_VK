@@ -18,7 +18,7 @@ class App extends React.Component<
   {},
   {
     activeTab: "Users" | "Settings";
-    banList?: String[];
+    banList?: string[];
     settings?: SettingsInterface;
     darkMode: boolean;
   }
@@ -36,7 +36,7 @@ class App extends React.Component<
   async init(): Promise<SettingsInterface> {
     let storage = await chrome.storage.local.get(["banList", "settings"]);
     let settings: SettingsInterface = storage.settings,
-      banList: String[] = storage.banList;
+      banList: string[] = storage.banList;
 
     if (!settings) {
       settings = settingsByDefault;

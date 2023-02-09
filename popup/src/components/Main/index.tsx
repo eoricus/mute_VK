@@ -3,11 +3,24 @@ import TypeOfClientError from "../../interfaces/clientError.type";
 
 import SettingsInterface from "../../interfaces/settings.interface";
 
-import Users from "./pages/Users";
-
 import { Icons, Button } from "../../utils/Button";
-import "./styles";
+
+
+import Users from "./pages/Users";
 import Settings from "./pages/Settings";
+
+import "./styles";
+
+type User = {
+  id: number;
+  email: string;
+  first_name: string;
+};
+
+type GetUsersResponse = {
+  data: User[];
+};
+
 
 /** Previous text of error message, need because animation
  *  during about second, and when error in null need to
@@ -63,12 +76,12 @@ interface interfaceOfMainProps {
   changeTab: Function;
 
   /** List of users from chrome storage, which messages will hide */
-  banList: String[];
+  banList: string[];
 }
 
 export default function Main(props: interfaceOfMainProps) {
   const [errorRef, setErrorRef] = useState<TypeOfClientError | any>(null);
-  let timerID: number;
+  let timerID: any; // WTF??
 
   /**
    * Set's the error state, and after a relevanceTime

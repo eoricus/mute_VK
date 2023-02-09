@@ -6,25 +6,23 @@ import SettingsInterface from "../../../interfaces/settings.interface";
 import { Icons, Button } from "../../../utils/Button";
 
 export default function Users(props: {
-  banList: String[];
+  banList: string[];
   setError: Function;
 }) {
   const [isTyping, setIsTyping] = useState<boolean>(false);
 
-  /** TODO DOC*/
   const inputUserId = useRef<HTMLInputElement | null>(null);
-  /** TODO DOC*/
+
   const buttonAddUserInBanList = useRef<HTMLDivElement | null>(null);
-  /** TODO DOC*/
+
   const buttonClearInput = useRef<HTMLDivElement | null>(null);
 
-  /** TODO DOC */
   const buttonClearBanList = useRef<HTMLDivElement | null>(null);
 
-  const refsForUsersButton = useRef<HTMLDivElement | any>([]);
-  refsForUsersButton.current = [...new Set(props.banList)].map(
+  const refsForUsersTags = useRef<HTMLDivElement | any>([]);
+  refsForUsersTags.current = [...new Set(props.banList)].map(
     (element, index) => {
-      return refsForUsersButton.current[index] || React.createRef();
+      return refsForUsersTags.current[index] || React.createRef();
     }
   );
 
@@ -52,7 +50,6 @@ export default function Users(props: {
     buttonAddUserInBanList.current?.addEventListener(
       "click",
       (event: MouseEvent) => {
-        console.log("ddw");
         let userID = inputUserId.current!.value;
 
         if (!/^\d+$/.test(userID)) {
@@ -61,6 +58,7 @@ export default function Users(props: {
           props.setError("clientErrorIdTooLong");
         } else {
           chrome.storage.local.get(["banList"], async (data) => {
+
             chrome.storage.local.set({
               banList:
                 Object.keys(data).length == 0
@@ -79,7 +77,7 @@ export default function Users(props: {
       "click",
       (event: MouseEvent) => {
         if (
-          props.banList.length != 0 
+          props.banList.length != 0
           // confirm("Очистить список заблокированных пользователей?")
         ) {
           chrome.storage.local.set({ banList: [] });
@@ -89,7 +87,7 @@ export default function Users(props: {
 
     /** Set event listener for click event, realize deleting
      *  appropriate id from chrome.storage */
-    refsForUsersButton.current.map((element: any, i: number) => {
+    refsForUsersTags.current.map((element: any, i: number) => {
       element.current.addEventListener("click", (event: MouseEvent) => {
         chrome.storage.local.set({
           banList: props.banList.filter((element) => {
@@ -104,7 +102,6 @@ export default function Users(props: {
     <>
       <div className="Input Input_ID">
         <div className="InputField">
-          {/* <icons.User className="InputField-Icon InputField-Icon_user" /> */}
           <Button
             icon={Icons.userOutline}
             className=" InputField-Icon InputField-Icon_user"
@@ -120,7 +117,6 @@ export default function Users(props: {
               isTyping ? "" : "InputField-IconContainer_hide"
             }`}
           >
-            {/* TODO  */}
             <Button
               icon={Icons.add}
               className=" InputField-Icon InputField-Icon_plus"
@@ -155,7 +151,7 @@ export default function Users(props: {
                 <Button
                   icon={Icons.cancel}
                   className=" UserIDTag-Button_delete"
-                  _ref={refsForUsersButton.current[i]}
+                  _ref={refsForUsersTags.current[i]}
                 />
                 <div className="UserIDTag-Text_id">id{userID}</div>
               </div>
