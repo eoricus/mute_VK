@@ -5,22 +5,10 @@ import SettingsInterface from "../../interfaces/settings.interface";
 
 import { Icons, Button } from "../../utils/Button";
 
-
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 
 import "./styles";
-
-type User = {
-  id: number;
-  email: string;
-  first_name: string;
-};
-
-type GetUsersResponse = {
-  data: User[];
-};
-
 
 /** Previous text of error message, need because animation
  *  during about second, and when error in null need to
