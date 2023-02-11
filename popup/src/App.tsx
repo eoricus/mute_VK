@@ -6,12 +6,14 @@ import Main from "./components/Main";
 import Footer from "./components/Footer";
 import SettingsInterface from "./interfaces/settings.interface";
 
+import "./App.scss";
+
 const settingsByDefault: SettingsInterface = {
   isPrettyMode: false,
   isBlurMode: false,
   isHideOnlyInChats: false,
   isAutoCensorship: false,
-  isHideFooter: false
+  isHideFooter: false,
 };
 
 class App extends React.Component<
@@ -49,8 +51,7 @@ class App extends React.Component<
           settings.isHideOnlyInChats || settingsByDefault.isHideOnlyInChats,
         isAutoCensorship:
           settings.isAutoCensorship || settingsByDefault.isAutoCensorship,
-        isHideFooter:
-          settings.isHideFooter || settingsByDefault.isHideFooter
+        isHideFooter: settings.isHideFooter || settingsByDefault.isHideFooter,
       };
     }
     this.setState({ settings: settings, banList: banList });
@@ -61,7 +62,7 @@ class App extends React.Component<
   async componentDidMount(): Promise<void> {
     await this.init();
     chrome.storage.onChanged.addListener((changes, namespace) => {
-      console.log(changes)
+      console.log(changes);
       if (namespace == "local") {
         for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
           if (key == "banList") {
@@ -100,12 +101,20 @@ class App extends React.Component<
         <Header
           changeTheme={() => {
             console.log(this.state.darkMode);
-            document.documentElement.setAttribute("data-theme", !this.state.darkMode ? "light" : "dark");
+            document.documentElement.setAttribute(
+              "data-theme",
+              !this.state.darkMode ? "light" : "dark"
+            );
             this.setState({ darkMode: !this.state.darkMode });
           }}
         />
 
-        <div id="containerForNavBarAndMain">
+        <div
+          id="containerForNavBarAndMain"
+          style={{
+            height: this.state.settings?.isHideFooter ? "192px" : "168px",
+          }}
+        >
           <NavBar activeTab={this.state.activeTab} changeTab={this.changeTab} />
           <Main
             activeTab={this.state.activeTab}
@@ -115,7 +124,7 @@ class App extends React.Component<
           />
         </div>
 
-        <Footer hide={this.state.settings?.isHideFooter || false}/>
+        <Footer hide={this.state.settings?.isHideFooter || false} />
       </>
     );
   }

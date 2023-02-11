@@ -1,39 +1,49 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { Icons, Button } from "../../utils/Button";
 import "./styles.scss";
 
-class Footer extends React.Component<{
-  hide: boolean;
-}> {
-  constructor(props: { hide: boolean }) {
-    super(props);
-  }
-  componentDidMount(): void {}
+export default function Footer(props: { hide: boolean }) {
+  const [news, setNews] = useState<string[]>(); // TODO
+  const refCupOfCoffee = useRef<HTMLDivElement | null>(null);
+  const refLinkToTelegram = useRef<HTMLDivElement | null>(null);
 
-  render(): React.ReactNode {
-    return (
-      <footer className={`Footer ${this.props.hide ? "_hide" : ""}`}>
-        <div className="Footer-Signature">
-          Сделано с любовью by <a href="t.me/eoricus">Eoricus</a>
-        </div>
-        <div className="Footer-Marquee">
-          <span className="Footer-Marquee_Wrapper">
-            <span className="Footer-Marquee_Item">
-              Проблемы нормальных людей: проблемы Проблемы москвичей: слишком
-              быстро выпил флэт уайт, и теперь неловко находится в кофейне
-            </span>
+  useEffect(() => {
+    refCupOfCoffee.current?.addEventListener("click", () => {
+      chrome.tabs.create({ url: "https://pay.cloudtips.ru/p/bfdaa112" });
+    });
+
+    refLinkToTelegram.current?.addEventListener("click", () => {
+      chrome.tabs.create({ url: "t.me/eoricus" });
+    });
+  });
+
+  return (
+    <footer className={`Footer ${props.hide ? "_hide" : ""}`}>
+      <div className="Footer-Signature">
+        C любовью by{" "}
+        <span
+          role="link"
+          style={{ fontStyle: "inherit" }}
+          ref={refLinkToTelegram}
+        >
+          Eoricus
+        </span>
+      </div>
+      <div className="Footer-Marquee">
+        <span className="Footer-Marquee_Wrapper">
+          <span className="Footer-Marquee_Item">
+            Проблемы нормальных людей: проблемы Проблемы москвичей: слишком
+            быстро выпил флэт уайт, и теперь неловко находится в кофейне
           </span>
-        </div>
-        <div className="Footer-Icon">
-          <Button
-            icon={Icons.cupOfCoffee}
-            className="Footer-IconButton"
-          />
-        </div>
-      </footer>
-    );
-  }
-}
+        </span>
+      </div>
 
-export default Footer;
+      <Button
+        icon={Icons.cupOfCoffee}
+        className="Footer-Icon Footer-Icon_CupOfCoffee"
+        _ref={refCupOfCoffee}
+      />
+    </footer>
+  );
+}

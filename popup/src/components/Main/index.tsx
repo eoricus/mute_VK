@@ -95,9 +95,7 @@ export default function Main(props: interfaceOfMainProps) {
   return (
     // It will look like "Main Main-Users _compact"
     <main
-      className={`Main Main-${props.activeTab} ${
-        props.settings.isHideFooter ? "" : "_compact"
-      }`}
+      className={`Main Main-${props.activeTab}`}
     >
       {props.activeTab == "Users" ? (
         <Users banList={props.banList} setError={setError} />

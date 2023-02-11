@@ -14,14 +14,19 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 24px;
-  
+
+  &._hide {
+    display: none;
+  }
 }
 
 .Footer-Signature {
-  min-width: 170px;
+  min-width: 122px;
+  
   color: var(--colorTextSecondary);
 
   font-style: italic;
+  
   a {
     font-style: italic;
   }
@@ -38,12 +43,12 @@
   .Footer-Marquee_Wrapper {
     float: left;
     will-change: transform;
-    animation: marquee 60s linear infinite;
+    animation: marquee 30s linear infinite;
     overflow: hidden;
 
     .Footer-Marquee_Item {
       display: inline-block;
-      animation: marquee 30s linear infinite;
+      animation: marquee 60s linear infinite;
     }
 
     &:hover {
@@ -62,18 +67,13 @@
 }
 
 .Footer-Icon {
-  .Footer-IconButton {
-    display: flex;
-    align-items: center;
-    justify-content: end;
+  // TODO 
+  min-width: 24px;
+  min-height: 24px;
 
-    width: 24px;
-    height: 24px;
+  fill: var(--colorIconSecondary);
 
-    fill: var(--colorIconSecondary);
-
-    :hover {
-      fill: var(--colorIconMedium);
-    }
+  :hover {
+    fill: var(--colorIconMedium);
   }
 }
